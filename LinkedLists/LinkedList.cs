@@ -123,6 +123,51 @@ namespace DataStructures
         }
         #endregion
 
+        void deletNodeAtPosition(int position)
+        {
+            Node temp = head;
+            //Base Case
+            if (head == null)
+            {
+                return;
+            }
+
+            // If position at head. 
+            if (position == 0)
+            {
+                head = temp.next;   // Change head
+                return;
+            }
+
+            // Find the previous of node to be deleted. 
+            for (int i = 0; temp != null && i < position - 1; i++)
+            {
+                temp = temp.next;
+            }
+
+            // If position is more than number of nodes
+            if (temp == null || temp.next == null)
+            {
+                return;
+            }
+
+            // Unlink the deleted node from the list.
+            temp.next = temp.next.next;
+        }
+
+        public int getLength()
+        {
+            Node temp = head;
+            int count = 0;
+
+            while (temp != null)
+            {
+                count++;
+                temp = temp.next;
+            }
+            return count;
+        }
+
         static void Main(string[] args)
         {
             LinkedList llist = new LinkedList();
@@ -136,12 +181,27 @@ namespace DataStructures
             llist.append(6);
             llist.push(7);
             llist.push(1);
+            llist.push(8);
+            llist.push(0);
             llist.insertAfterANode(llist.head.next, 8);
+
+
+            Console.WriteLine("Constructed Linked List");
+            llist.printList();
+
+            llist.deletNodeAtPosition(3);
+            Console.WriteLine("\n");
+            Console.WriteLine("Linked List after deleting at a position");
 
             llist.printList();
 
             llist.deleteNode(8);
+            Console.WriteLine("\n");
+            Console.WriteLine("Linked List after deleting, given key");
             llist.printList();
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Length of Linked List is:" + llist.getLength());
         }
     }
 }
